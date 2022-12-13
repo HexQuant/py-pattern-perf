@@ -1,0 +1,33 @@
+# Importing specific name instead of namespace
+
+import math
+from math import sqrt
+
+MAX_ELEMENT = 100
+
+def func_a() -> list:
+    return [math.sqrt(x) for x in range(MAX_ELEMENT)]
+
+def func_b() -> list:
+    return [sqrt(x) for x in range(MAX_ELEMENT)]
+
+import numpy as np
+from numpy import ndarray, sqrt as np_sqrt
+from numpy.random import random
+
+
+def func_numpy_a() -> np.ndarray:
+    x = np.random.random(MAX_ELEMENT)
+    return np.sqrt(x)
+
+def func_numpy_b() -> ndarray:
+    x = random(MAX_ELEMENT)
+    return np_sqrt(x)
+
+
+if __name__ == '__main__':
+    import timeit
+    print(timeit.timeit("func_a()", setup="from __main__ import func_a"))
+    print(timeit.timeit("func_b()", setup="from __main__ import func_b"))
+    print(timeit.timeit("func_numpy_a()", setup="from __main__ import func_numpy_a"))
+    print(timeit.timeit("func_numpy_b()", setup="from __main__ import func_numpy_b"))
