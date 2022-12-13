@@ -16,6 +16,10 @@ def func_b()->None:
         x-=2
 
 if __name__ == '__main__':
-    import timeit
-    print(timeit.timeit("func_a()", setup="from __main__ import func_a"))
-    print(timeit.timeit("func_b()", setup="from __main__ import func_b"))
+    from myprofiler.myprofiler import do_profile
+    do_profile(
+        'Compound operators', (
+            ('naive', 'func_a'),
+            ('compound_ops', 'func_b'),
+            ),
+    )

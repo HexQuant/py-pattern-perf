@@ -65,27 +65,12 @@ def func_d() -> None:
         b = xx.float_field
 
 if __name__ == '__main__':
-    import timeit
-    import seaborn as sns
-    import matplotlib.pyplot as plt
-    import pandas as pd
-    from tabulate import tabulate
-
-    df = pd.DataFrame()
-    number = 1000
-    repeat = 100
-    df['dataclass'] = timeit.repeat("func_a()", setup="from __main__ import func_a", repeat=repeat, number=number)
-    df['namedtuple']=timeit.repeat("func_b()", setup="from __main__ import func_b", repeat=repeat, number=number)
-    df['dictionary']=timeit.repeat("func_c()", setup="from __main__ import func_c", repeat=repeat, number=number)
-    df['class']=timeit.repeat("func_d()", setup="from __main__ import func_d",  repeat=repeat, number=number)
-    print(tabulate(df.describe(percentiles=(0.05, 0.50, 0.95))[1:],headers=df.columns, tablefmt='github', floatfmt='.3e'))
-    fig = plt.figure()
-    ax = df[df.mean().sort_values().index].boxplot()
-    ax.set(
-        xlabel='Pattern',
-        ylabel='Execution time, seconds',
-        title = f'dataclass pattern ({repeat=}, {number=})',
-        #ylim=(0, None)
-        )
-    fig.tight_layout()
-    fig.savefig('reports/img_1.png')
+    from myprofiler.myprofiler import do_profile
+    do_profile(
+        'Dataclass', (
+            ('dataclass', 'func_a'),
+            ('namedtuple', 'func_b'),
+            ('dictionary', 'func_c'),
+            ('class', 'func_d'),
+            )
+    )

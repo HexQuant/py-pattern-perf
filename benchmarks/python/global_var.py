@@ -12,6 +12,11 @@ def func_b() -> None:
 
 
 if __name__ == '__main__':
-    import timeit
-    print(timeit.repeat("func_a()", setup="from __main__ import func_a"))
-    print(timeit.repeat("func_b()", setup="from __main__ import func_b"))
+
+    from myprofiler.myprofiler import do_profile
+    do_profile(
+        'Global var', (
+            ('write []', 'func_a'),
+            ('append []', 'func_b'),
+            ),
+    )

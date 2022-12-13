@@ -3,7 +3,7 @@
 import math
 from math import sqrt
 
-MAX_ELEMENT = 100
+MAX_ELEMENT:int = 100
 
 def func_a() -> list:
     return [math.sqrt(x) for x in range(MAX_ELEMENT)]
@@ -26,8 +26,13 @@ def func_numpy_b() -> ndarray:
 
 
 if __name__ == '__main__':
-    import timeit
-    print(timeit.timeit("func_a()", setup="from __main__ import func_a"))
-    print(timeit.timeit("func_b()", setup="from __main__ import func_b"))
-    print(timeit.timeit("func_numpy_a()", setup="from __main__ import func_numpy_a"))
-    print(timeit.timeit("func_numpy_b()", setup="from __main__ import func_numpy_b"))
+
+    from myprofiler.myprofiler import do_profile
+    do_profile(
+        'Module imports', (
+            ('indirect', 'func_a'),
+            ('direct', 'func_b'),
+            )
+    )
+    #print(timeit.timeit("func_numpy_a()", setup="from __main__ import func_numpy_a"))
+    #print(timeit.timeit("func_numpy_b()", setup="from __main__ import func_numpy_b"))
