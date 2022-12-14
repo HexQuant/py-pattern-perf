@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from tabulate import tabulate
 
-def do_profile(description:str, funcs:tuple, repeat:int=100, number:int=1000):
+def do_profile(description:str, funcs:tuple, repeat:int=200, number:int=1000):
 
     df = pd.DataFrame()
     for name, func in funcs:
